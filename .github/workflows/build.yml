@@ -20,7 +20,7 @@ jobs:
         run: nuget restore uwpjs.sln
 
       - name: Compilar em modo Release (x64)
-        run: msbuild uwpjs.sln /p:Configuration=Release /p:Platform=x64 /p:AppxBundle=Never /p:UapAppxPackageBuildMode=SideloadOnly /p:AppxPackageSigningEnabled=false
+        run: msbuild uwpjs.sln /p:Configuration=Release /p:Platform="Any CPU" /p:AppxBundle=Never /p:UapAppxPackageBuildMode=SideloadOnly /p:AppxPackageSigningEnabled=false
 
       - name: Enviar o pacote gerado como artefato
         uses: actions/upload-artifact@v4
