@@ -26,4 +26,8 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: appx-package
-          path: '**/AppPackages/**/*.appx'
+          path: |
+            **/AppPackages/**/*.appx
+            **/AppPackages/**/*.msix
+            **/AppPackages/**/*.appxbundle
+            **/AppPackages/**/*.msixbundle
