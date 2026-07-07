@@ -1,0 +1,29 @@
+name: Build UWP Package
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      - name: Configurar MSBuild
+        uses: microsoft/setup-msbuild@v2
+
+      - name: Restaurar pacotes NuGet
+        run: nuget restore uwpjs.sln
+
+      - name: Compilar em modo Release (x64)
+        run: msbuild uwpjs.sln /p:Configuration=Release /p:Platform=x64 /p:AppxBundle=Never /p:UapAppxPackageBuildMode=SideloadOnly /p:AppxPackageSigningEnabled=false
+
+      - name: Enviar o pacote gerado como artefato
+        uses: actions/upload-artifact@v4
+        with:
+          name: appx-package
+          path: '**/AppPackages/**/*.appx'
